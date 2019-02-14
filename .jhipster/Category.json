@@ -1,0 +1,44 @@
+{
+    "name": "Category",
+    "fields": [
+        {
+            "fieldName": "key",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "subCategories",
+            "otherEntityName": "category",
+            "otherEntityRelationshipName": "parentCategory"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "cazeType",
+            "otherEntityName": "cazeType",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "category"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "parentCategory",
+            "otherEntityName": "category",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "subCategories"
+        }
+    ],
+    "changelogDate": "20190214115538",
+    "entityTableName": "category",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

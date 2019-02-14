@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="apiHeader">
+            <h2><span>Api Header</span> {{apiHeader.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Key</span></dt>
+                <dd>
+                    <span>{{apiHeader.key}}</span>
+                </dd>
+                <dt><span>Value</span></dt>
+                <dd>
+                    <span>{{apiHeader.value}}</span>
+                </dd>
+                <dt><span>Api Data Object</span></dt>
+                <dd>
+                    <div *ngIf="apiHeader.apiDataObjectId">
+                        <a [routerLink]="['/api-data-object', apiHeader.apiDataObjectId, 'view']">{{apiHeader.apiDataObjectId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/api-header', apiHeader.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

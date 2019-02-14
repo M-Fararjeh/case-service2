@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-api-data-object-heading">Create or edit a Api Data Object</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!apiDataObject.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="apiDataObject.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_method">Method</label>
+                    <select class="form-control" name="method" [(ngModel)]="apiDataObject.method" id="field_method" >
+                        <option value="GET">GET</option>
+                        <option value="POST">POST</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_url">Url</label>
+                    <input type="text" class="form-control" name="url" id="field_url"
+                        [(ngModel)]="apiDataObject.url" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_body">Body</label>
+                    <input type="text" class="form-control" name="body" id="field_body"
+                        [(ngModel)]="apiDataObject.body" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

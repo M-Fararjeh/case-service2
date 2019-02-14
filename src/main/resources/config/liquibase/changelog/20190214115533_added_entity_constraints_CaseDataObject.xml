@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity CaseDataObject.
+    -->
+    <changeSet id="20190214115533-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="api_data_object_id"
+                                 baseTableName="case_data_object"
+                                 constraintName="fk_case_data_object_api_data_object_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="api_data_object"/>
+
+        <addForeignKeyConstraint baseColumnNames="db_data_object_id"
+                                 baseTableName="case_data_object"
+                                 constraintName="fk_case_data_object_db_data_object_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="db_data_object"/>
+
+        <addForeignKeyConstraint baseColumnNames="file_data_object_id"
+                                 baseTableName="case_data_object"
+                                 constraintName="fk_case_data_object_file_data_object_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="file_data_object"/>
+
+        <addForeignKeyConstraint baseColumnNames="caze_instance_id"
+                                 baseTableName="case_data_object"
+                                 constraintName="fk_case_data_object_caze_instance_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="caze_instance"/>
+
+    </changeSet>
+</databaseChangeLog>

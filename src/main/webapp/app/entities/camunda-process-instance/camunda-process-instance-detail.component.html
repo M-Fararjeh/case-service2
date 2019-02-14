@@ -1,0 +1,31 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="camundaProcessInstance">
+            <h2><span>Camunda Process Instance</span> {{camundaProcessInstance.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Process Instance Id</span></dt>
+                <dd>
+                    <span>{{camundaProcessInstance.processInstanceId}}</span>
+                </dd>
+                <dt><span>Process Instance Name</span></dt>
+                <dd>
+                    <span>{{camundaProcessInstance.processInstanceName}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/camunda-process-instance', camundaProcessInstance.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

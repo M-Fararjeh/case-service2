@@ -1,0 +1,53 @@
+{
+    "name": "CaseDataObject",
+    "fields": [
+        {
+            "fieldName": "type",
+            "fieldType": "DataObjectType",
+            "fieldValues": "API,DB,FILE"
+        },
+        {
+            "fieldName": "key",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "apiDataObject",
+            "otherEntityName": "apiDataObject",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "caseDataObject"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "dbDataObject",
+            "otherEntityName": "dbDataObject",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "caseDataObject"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "fileDataObject",
+            "otherEntityName": "fileDataObject",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "caseDataObject"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "cazeInstance",
+            "otherEntityName": "cazeInstance",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "caseDataObject"
+        }
+    ],
+    "changelogDate": "20190214115533",
+    "entityTableName": "case_data_object",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="cazeType">
+            <h2><span>Caze Type</span> {{cazeType.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Name</span></dt>
+                <dd>
+                    <span>{{cazeType.name}}</span>
+                </dd>
+                <dt><span>Priority</span></dt>
+                <dd>
+                    <span>{{cazeType.priority}}</span>
+                </dd>
+                <dt><span>Required Time</span></dt>
+                <dd>
+                    <span>{{cazeType.requiredTime}}</span>
+                </dd>
+                <dt><span>Secured</span></dt>
+                <dd>
+                    <span>{{cazeType.secured}}</span>
+                </dd>
+                <dt><span>Category</span></dt>
+                <dd>
+                    <div *ngIf="cazeType.categoryId">
+                        <a [routerLink]="['/category', cazeType.categoryId, 'view']">{{cazeType.categoryId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/caze-type', cazeType.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

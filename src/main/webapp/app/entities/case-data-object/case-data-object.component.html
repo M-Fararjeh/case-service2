@@ -1,0 +1,88 @@
+<div>
+    <h2 id="page-heading">
+        <span>Case Data Objects</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-case-data-object" [routerLink]="['/case-data-object/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Case Data Object
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="caseDataObjects">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="type"><span>Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="key"><span>Key</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="apiDataObjectId"><span>Api Data Object</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dbDataObjectId"><span>Db Data Object</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="fileDataObjectId"><span>File Data Object</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="cazeInstanceId"><span>Caze Instance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let caseDataObject of caseDataObjects ;trackBy: trackId">
+                <td><a [routerLink]="['/case-data-object', caseDataObject.id, 'view' ]">{{caseDataObject.id}}</a></td>
+                <td>{{caseDataObject.type}}</td>
+                <td>{{caseDataObject.key}}</td>
+                <td>
+                    <div *ngIf="caseDataObject.apiDataObjectId">
+                        <a [routerLink]="['../api-data-object', caseDataObject.apiDataObjectId , 'view' ]" >{{caseDataObject.apiDataObjectId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="caseDataObject.dbDataObjectId">
+                        <a [routerLink]="['../db-data-object', caseDataObject.dbDataObjectId , 'view' ]" >{{caseDataObject.dbDataObjectId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="caseDataObject.fileDataObjectId">
+                        <a [routerLink]="['../file-data-object', caseDataObject.fileDataObjectId , 'view' ]" >{{caseDataObject.fileDataObjectId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="caseDataObject.cazeInstanceId">
+                        <a [routerLink]="['../caze-instance', caseDataObject.cazeInstanceId , 'view' ]" >{{caseDataObject.cazeInstanceId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/case-data-object', caseDataObject.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/case-data-object', caseDataObject.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'case-data-object', { outlets: { popup: caseDataObject.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="caseDataObjects && caseDataObjects.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

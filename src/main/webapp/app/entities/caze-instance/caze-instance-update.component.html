@@ -1,0 +1,117 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-caze-instance-heading">Create or edit a Caze Instance</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!cazeInstance.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="cazeInstance.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                        [(ngModel)]="cazeInstance.name" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                        [(ngModel)]="cazeInstance.description" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_number">Number</label>
+                    <input type="text" class="form-control" name="number" id="field_number"
+                        [(ngModel)]="cazeInstance.number" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_creatorId">Creator Id</label>
+                    <input type="text" class="form-control" name="creatorId" id="field_creatorId"
+                        [(ngModel)]="cazeInstance.creatorId" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_issuerID">Issuer ID</label>
+                    <input type="text" class="form-control" name="issuerID" id="field_issuerID"
+                        [(ngModel)]="cazeInstance.issuerID" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_creationDate">Creation Date</label>
+                    <div class="input-group">
+                        <input id="field_creationDate" type="text" class="form-control" name="creationDate" ngbDatepicker  #creationDateDp="ngbDatepicker" [(ngModel)]="cazeInstance.creationDate"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="creationDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_caseDate">Case Date</label>
+                    <div class="input-group">
+                        <input id="field_caseDate" type="text" class="form-control" name="caseDate" ngbDatepicker  #caseDateDp="ngbDatepicker" [(ngModel)]="cazeInstance.caseDate"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="caseDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_priority">Priority</label>
+                    <select class="form-control" name="priority" [(ngModel)]="cazeInstance.priority" id="field_priority" >
+                        <option value="HIGH">HIGH</option>
+                        <option value="NORMAL">NORMAL</option>
+                        <option value="LOW">LOW</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_requiredTime">Required Time</label>
+                    <input type="number" class="form-control" name="requiredTime" id="field_requiredTime"
+                        [(ngModel)]="cazeInstance.requiredTime" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_secured">Secured</label>
+                    <input type="checkbox" class="form-control" name="secured" id="field_secured"
+                        [(ngModel)]="cazeInstance.secured" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_cmmnId">Cmmn Id</label>
+                    <input type="text" class="form-control" name="cmmnId" id="field_cmmnId"
+                        [(ngModel)]="cazeInstance.cmmnId" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_cazeType">Caze Type</label>
+                    <select class="form-control" id="field_cazeType" name="cazeType" [(ngModel)]="cazeInstance.cazeTypeId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="cazeTypeOption.id" *ngFor="let cazeTypeOption of cazetypes; trackBy: trackCazeTypeById">{{cazeTypeOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="field_camundaCaseInstance">Camunda Case Instance</label>
+                    <select class="form-control" id="field_camundaCaseInstance" multiple name="camundaCaseInstance" [(ngModel)]="cazeInstance.camundaCaseInstances">
+                        <option [ngValue]="getSelected(cazeInstance.camundaCaseInstances, camundaCaseInstanceOption)" *ngFor="let camundaCaseInstanceOption of camundacaseinstances; trackBy: trackCamundaCaseInstanceById">{{camundaCaseInstanceOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="field_camundaProcessInstance">Camunda Process Instance</label>
+                    <select class="form-control" id="field_camundaProcessInstance" multiple name="camundaProcessInstance" [(ngModel)]="cazeInstance.camundaProcessInstances">
+                        <option [ngValue]="getSelected(cazeInstance.camundaProcessInstances, camundaProcessInstanceOption)" *ngFor="let camundaProcessInstanceOption of camundaprocessinstances; trackBy: trackCamundaProcessInstanceById">{{camundaProcessInstanceOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="field_relatedCaze">Related Caze</label>
+                    <select class="form-control" id="field_relatedCaze" multiple name="relatedCaze" [(ngModel)]="cazeInstance.relatedCazes">
+                        <option [ngValue]="getSelected(cazeInstance.relatedCazes, cazeInstanceOption)" *ngFor="let cazeInstanceOption of cazeinstances; trackBy: trackCazeInstanceById">{{cazeInstanceOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

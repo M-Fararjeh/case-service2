@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity CazeInstance.
+    -->
+    <changeSet id="20190214115529-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="caze_type_id"
+                                 baseTableName="caze_instance"
+                                 constraintName="fk_caze_instance_caze_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="caze_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="caze_instance_id"
+                                 baseTableName="caze_instance_camunda_case_instance"
+                                 constraintName="fk_caze_instance_camunda_case_instance_caze_instance_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="caze_instance"/>
+        <addForeignKeyConstraint baseColumnNames="camunda_case_instance_id"
+                                 baseTableName="caze_instance_camunda_case_instance"
+                                 constraintName="fk_caze_instance_camunda_case_instance_camunda_case_instance_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="camunda_case_instance"/>
+        
+        <addForeignKeyConstraint baseColumnNames="caze_instance_id"
+                                 baseTableName="caze_instance_camunda_process_instance"
+                                 constraintName="fk_caze_instance_camunda_process_instance_caze_instance_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="caze_instance"/>
+        <addForeignKeyConstraint baseColumnNames="camunda_process_instance_id"
+                                 baseTableName="caze_instance_camunda_process_instance"
+                                 constraintName="caze_instance_camunda_process_i_camunda_process_instance_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="camunda_process_instance"/>
+        
+        <addForeignKeyConstraint baseColumnNames="caze_instance_id"
+                                 baseTableName="caze_instance_related_caze"
+                                 constraintName="fk_caze_instance_related_caze_caze_instance_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="caze_instance"/>
+        <addForeignKeyConstraint baseColumnNames="related_caze_id"
+                                 baseTableName="caze_instance_related_caze"
+                                 constraintName="fk_caze_instance_related_caze_related_caze_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="caze_instance"/>
+        
+    </changeSet>
+</databaseChangeLog>

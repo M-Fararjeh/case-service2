@@ -1,0 +1,110 @@
+// JDL definition for application 'caseService' generated with command 'jhipster export-jdl'
+entity CazeInstance {
+  name String,
+  description String,
+  number String,
+  creatorId String,
+  issuerID String,
+  creationDate LocalDate,
+  caseDate LocalDate,
+  priority CasePriority,
+  requiredTime Integer,
+  secured Boolean,
+  cmmnId String
+}
+
+entity CazeType {
+  name String,
+  priority CasePriority,
+  requiredTime Integer,
+  secured Boolean
+}
+
+entity CamundaCaseInstance {
+  caseInstanceId String,
+  caseInstanceName String
+}
+
+entity CamundaProcessInstance {
+  processInstanceId String,
+  processInstanceName String
+}
+
+entity CaseDataObject {
+  type DataObjectType,
+  key String
+}
+
+entity ApiDataObject {
+  method ApiMethod,
+  url String,
+  body String
+}
+
+entity ApiHeader {
+  key String,
+  value String
+}
+
+entity DbDataObject {
+  tableName String,
+  columnName String,
+  columnValue String
+}
+
+entity FileDataObject {
+  cmisId String,
+  path String
+}
+
+entity Category {
+  key String,
+  name String
+}
+
+enum CasePriority {
+  HIGH,
+  NORMAL,
+  LOW
+}
+
+enum DataObjectType {
+  API,
+  DB,
+  FILE
+}
+
+enum ApiMethod {
+  GET,
+  POST
+}
+relationship OneToOne {
+  CazeType to Category
+}
+
+relationship OneToMany {
+  CazeInstance to CaseDataObject,
+  Category{subCategories} to Category{parentCategory}
+  ApiDataObject to ApiHeader,
+}
+
+relationship ManyToMany {
+  CazeInstance{camundaCaseInstance} to CamundaCaseInstance{cazeInstance} ,
+  CazeInstance{camundaProcessInstance} to CamundaProcessInstance{cazeInstance}
+  CazeInstance{relatedCaze} to CazeInstance
+}
+
+
+relationship ManyToOne {
+  CazeInstance{cazeType} to CazeType,
+  CaseDataObject to ApiDataObject,
+  CaseDataObject to DbDataObject,
+  CaseDataObject to FileDataObject
+}
+
+
+paginate all with pagination
+service all with serviceClass
+dto * with mapstruct
+
+noFluentMethod all 

@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-caze-type-heading">Create or edit a Caze Type</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!cazeType.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="cazeType.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                        [(ngModel)]="cazeType.name" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_priority">Priority</label>
+                    <select class="form-control" name="priority" [(ngModel)]="cazeType.priority" id="field_priority" >
+                        <option value="HIGH">HIGH</option>
+                        <option value="NORMAL">NORMAL</option>
+                        <option value="LOW">LOW</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_requiredTime">Required Time</label>
+                    <input type="number" class="form-control" name="requiredTime" id="field_requiredTime"
+                        [(ngModel)]="cazeType.requiredTime" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_secured">Secured</label>
+                    <input type="checkbox" class="form-control" name="secured" id="field_secured"
+                        [(ngModel)]="cazeType.secured" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_category">Category</label>
+                    <select class="form-control" id="field_category" name="category" [(ngModel)]="cazeType.categoryId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="categoryOption.id" *ngFor="let categoryOption of categories; trackBy: trackCategoryById">{{categoryOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

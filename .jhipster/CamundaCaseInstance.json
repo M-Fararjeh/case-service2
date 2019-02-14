@@ -1,0 +1,31 @@
+{
+    "name": "CamundaCaseInstance",
+    "fields": [
+        {
+            "fieldName": "caseInstanceId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "caseInstanceName",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "cazeInstance",
+            "otherEntityName": "cazeInstance",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "camundaCaseInstance"
+        }
+    ],
+    "changelogDate": "20190214115531",
+    "entityTableName": "camunda_case_instance",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

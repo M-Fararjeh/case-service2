@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="caseDataObject">
+            <h2><span>Case Data Object</span> {{caseDataObject.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Type</span></dt>
+                <dd>
+                    <span>{{caseDataObject.type}}</span>
+                </dd>
+                <dt><span>Key</span></dt>
+                <dd>
+                    <span>{{caseDataObject.key}}</span>
+                </dd>
+                <dt><span>Api Data Object</span></dt>
+                <dd>
+                    <div *ngIf="caseDataObject.apiDataObjectId">
+                        <a [routerLink]="['/api-data-object', caseDataObject.apiDataObjectId, 'view']">{{caseDataObject.apiDataObjectId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Db Data Object</span></dt>
+                <dd>
+                    <div *ngIf="caseDataObject.dbDataObjectId">
+                        <a [routerLink]="['/db-data-object', caseDataObject.dbDataObjectId, 'view']">{{caseDataObject.dbDataObjectId}}</a>
+                    </div>
+                </dd>
+                <dt><span>File Data Object</span></dt>
+                <dd>
+                    <div *ngIf="caseDataObject.fileDataObjectId">
+                        <a [routerLink]="['/file-data-object', caseDataObject.fileDataObjectId, 'view']">{{caseDataObject.fileDataObjectId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Caze Instance</span></dt>
+                <dd>
+                    <div *ngIf="caseDataObject.cazeInstanceId">
+                        <a [routerLink]="['/caze-instance', caseDataObject.cazeInstanceId, 'view']">{{caseDataObject.cazeInstanceId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/case-data-object', caseDataObject.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

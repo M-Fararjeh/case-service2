@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-case-data-object-heading">Create or edit a Case Data Object</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!caseDataObject.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="caseDataObject.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_type">Type</label>
+                    <select class="form-control" name="type" [(ngModel)]="caseDataObject.type" id="field_type" >
+                        <option value="API">API</option>
+                        <option value="DB">DB</option>
+                        <option value="FILE">FILE</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_key">Key</label>
+                    <input type="text" class="form-control" name="key" id="field_key"
+                        [(ngModel)]="caseDataObject.key" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_apiDataObject">Api Data Object</label>
+                    <select class="form-control" id="field_apiDataObject" name="apiDataObject" [(ngModel)]="caseDataObject.apiDataObjectId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="apiDataObjectOption.id" *ngFor="let apiDataObjectOption of apidataobjects; trackBy: trackApiDataObjectById">{{apiDataObjectOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dbDataObject">Db Data Object</label>
+                    <select class="form-control" id="field_dbDataObject" name="dbDataObject" [(ngModel)]="caseDataObject.dbDataObjectId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="dbDataObjectOption.id" *ngFor="let dbDataObjectOption of dbdataobjects; trackBy: trackDbDataObjectById">{{dbDataObjectOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_fileDataObject">File Data Object</label>
+                    <select class="form-control" id="field_fileDataObject" name="fileDataObject" [(ngModel)]="caseDataObject.fileDataObjectId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="fileDataObjectOption.id" *ngFor="let fileDataObjectOption of filedataobjects; trackBy: trackFileDataObjectById">{{fileDataObjectOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_cazeInstance">Caze Instance</label>
+                    <select class="form-control" id="field_cazeInstance" name="cazeInstance" [(ngModel)]="caseDataObject.cazeInstanceId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="cazeInstanceOption.id" *ngFor="let cazeInstanceOption of cazeinstances; trackBy: trackCazeInstanceById">{{cazeInstanceOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

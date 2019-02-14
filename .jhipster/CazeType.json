@@ -1,0 +1,41 @@
+{
+    "name": "CazeType",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "priority",
+            "fieldType": "CasePriority",
+            "fieldValues": "HIGH,NORMAL,LOW"
+        },
+        {
+            "fieldName": "requiredTime",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "secured",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "category",
+            "otherEntityName": "category",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "cazeType"
+        }
+    ],
+    "changelogDate": "20190214115530",
+    "entityTableName": "caze_type",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

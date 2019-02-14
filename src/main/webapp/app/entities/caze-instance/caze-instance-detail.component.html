@@ -1,0 +1,91 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="cazeInstance">
+            <h2><span>Caze Instance</span> {{cazeInstance.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Name</span></dt>
+                <dd>
+                    <span>{{cazeInstance.name}}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{cazeInstance.description}}</span>
+                </dd>
+                <dt><span>Number</span></dt>
+                <dd>
+                    <span>{{cazeInstance.number}}</span>
+                </dd>
+                <dt><span>Creator Id</span></dt>
+                <dd>
+                    <span>{{cazeInstance.creatorId}}</span>
+                </dd>
+                <dt><span>Issuer ID</span></dt>
+                <dd>
+                    <span>{{cazeInstance.issuerID}}</span>
+                </dd>
+                <dt><span>Creation Date</span></dt>
+                <dd>
+                    <span>{{cazeInstance.creationDate}}</span>
+                </dd>
+                <dt><span>Case Date</span></dt>
+                <dd>
+                    <span>{{cazeInstance.caseDate}}</span>
+                </dd>
+                <dt><span>Priority</span></dt>
+                <dd>
+                    <span>{{cazeInstance.priority}}</span>
+                </dd>
+                <dt><span>Required Time</span></dt>
+                <dd>
+                    <span>{{cazeInstance.requiredTime}}</span>
+                </dd>
+                <dt><span>Secured</span></dt>
+                <dd>
+                    <span>{{cazeInstance.secured}}</span>
+                </dd>
+                <dt><span>Cmmn Id</span></dt>
+                <dd>
+                    <span>{{cazeInstance.cmmnId}}</span>
+                </dd>
+                <dt><span>Caze Type</span></dt>
+                <dd>
+                    <div *ngIf="cazeInstance.cazeTypeId">
+                        <a [routerLink]="['/caze-type', cazeInstance.cazeTypeId, 'view']">{{cazeInstance.cazeTypeId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Camunda Case Instance</span></dt>
+                <dd>
+                    <span *ngFor="let camundaCaseInstance of cazeInstance.camundaCaseInstances; let last = last">
+                        <a [routerLink]="['/camunda-case-instance', camundaCaseInstance?.id, 'view' ]">{{camundaCaseInstance.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span>Camunda Process Instance</span></dt>
+                <dd>
+                    <span *ngFor="let camundaProcessInstance of cazeInstance.camundaProcessInstances; let last = last">
+                        <a [routerLink]="['/camunda-process-instance', camundaProcessInstance?.id, 'view' ]">{{camundaProcessInstance.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span>Related Caze</span></dt>
+                <dd>
+                    <span *ngFor="let relatedCaze of cazeInstance.relatedCazes; let last = last">
+                        <a [routerLink]="['/caze-instance', relatedCaze?.id, 'view' ]">{{relatedCaze.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/caze-instance', cazeInstance.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

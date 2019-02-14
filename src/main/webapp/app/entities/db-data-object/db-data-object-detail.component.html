@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="dbDataObject">
+            <h2><span>Db Data Object</span> {{dbDataObject.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Table Name</span></dt>
+                <dd>
+                    <span>{{dbDataObject.tableName}}</span>
+                </dd>
+                <dt><span>Column Name</span></dt>
+                <dd>
+                    <span>{{dbDataObject.columnName}}</span>
+                </dd>
+                <dt><span>Column Value</span></dt>
+                <dd>
+                    <span>{{dbDataObject.columnValue}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/db-data-object', dbDataObject.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

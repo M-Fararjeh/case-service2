@@ -1,0 +1,34 @@
+{
+    "name": "DbDataObject",
+    "fields": [
+        {
+            "fieldName": "tableName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "columnName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "columnValue",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "caseDataObject",
+            "otherEntityName": "caseDataObject",
+            "otherEntityRelationshipName": "dbDataObject"
+        }
+    ],
+    "changelogDate": "20190214115536",
+    "entityTableName": "db_data_object",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

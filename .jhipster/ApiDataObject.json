@@ -1,0 +1,41 @@
+{
+    "name": "ApiDataObject",
+    "fields": [
+        {
+            "fieldName": "method",
+            "fieldType": "ApiMethod",
+            "fieldValues": "GET,POST"
+        },
+        {
+            "fieldName": "url",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "body",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "apiHeader",
+            "otherEntityName": "apiHeader",
+            "otherEntityRelationshipName": "apiDataObject"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "caseDataObject",
+            "otherEntityName": "caseDataObject",
+            "otherEntityRelationshipName": "apiDataObject"
+        }
+    ],
+    "changelogDate": "20190214115534",
+    "entityTableName": "api_data_object",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

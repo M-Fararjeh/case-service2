@@ -1,0 +1,30 @@
+{
+    "name": "FileDataObject",
+    "fields": [
+        {
+            "fieldName": "cmisId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "path",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "caseDataObject",
+            "otherEntityName": "caseDataObject",
+            "otherEntityRelationshipName": "fileDataObject"
+        }
+    ],
+    "changelogDate": "20190214115537",
+    "entityTableName": "file_data_object",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}
