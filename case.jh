@@ -10,7 +10,8 @@ entity CazeInstance {
   priority CasePriority,
   requiredTime Integer,
   secured Boolean,
-  cmmnId String
+  cmmnId String,
+  requestId Long
 }
 
 entity CazeType {

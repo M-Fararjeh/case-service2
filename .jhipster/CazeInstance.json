@@ -45,6 +45,10 @@
         {
             "fieldName": "cmmnId",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "requestId",
+            "fieldType": "Long"
         }
     ],
     "relationships": [

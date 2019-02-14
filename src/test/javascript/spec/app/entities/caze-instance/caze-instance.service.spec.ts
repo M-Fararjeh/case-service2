@@ -37,7 +37,8 @@ describe('Service Tests', () => {
                 CasePriority.HIGH,
                 0,
                 false,
-                'AAAAAAA'
+                'AAAAAAA',
+                0
             );
         });
 
@@ -96,7 +97,8 @@ describe('Service Tests', () => {
                         priority: 'BBBBBB',
                         requiredTime: 1,
                         secured: true,
-                        cmmnId: 'BBBBBB'
+                        cmmnId: 'BBBBBB',
+                        requestId: 1
                     },
                     elemDefault
                 );
@@ -129,7 +131,8 @@ describe('Service Tests', () => {
                         priority: 'BBBBBB',
                         requiredTime: 1,
                         secured: true,
-                        cmmnId: 'BBBBBB'
+                        cmmnId: 'BBBBBB',
+                        requestId: 1
                     },
                     elemDefault
                 );

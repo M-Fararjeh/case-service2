@@ -122,6 +122,9 @@ public class CazeInstanceQueryService extends QueryService<CazeInstance> {
             if (criteria.getCmmnId() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getCmmnId(), CazeInstance_.cmmnId));
             }
+            if (criteria.getRequestId() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getRequestId(), CazeInstance_.requestId));
+            }
             if (criteria.getCaseDataObjectId() != null) {
                 specification = specification.and(buildSpecification(criteria.getCaseDataObjectId(),
                     root -> root.join(CazeInstance_.caseDataObjects, JoinType.LEFT).get(CaseDataObject_.id)));

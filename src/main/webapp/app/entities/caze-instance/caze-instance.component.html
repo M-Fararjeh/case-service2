@@ -26,6 +26,7 @@
             <th jhiSortBy="requiredTime"><span>Required Time</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="secured"><span>Secured</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="cmmnId"><span>Cmmn Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="requestId"><span>Request Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="cazeTypeId"><span>Caze Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -44,6 +45,7 @@
                 <td>{{cazeInstance.requiredTime}}</td>
                 <td>{{cazeInstance.secured}}</td>
                 <td>{{cazeInstance.cmmnId}}</td>
+                <td>{{cazeInstance.requestId}}</td>
                 <td>
                     <div *ngIf="cazeInstance.cazeTypeId">
                         <a [routerLink]="['../caze-type', cazeInstance.cazeTypeId , 'view' ]" >{{cazeInstance.cazeTypeId}}</a>

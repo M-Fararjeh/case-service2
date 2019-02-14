@@ -53,6 +53,8 @@ public class CazeInstanceCriteria implements Serializable {
 
     private StringFilter cmmnId;
 
+    private LongFilter requestId;
+
     private LongFilter caseDataObjectId;
 
     private LongFilter cazeTypeId;
@@ -159,6 +161,14 @@ public class CazeInstanceCriteria implements Serializable {
         this.cmmnId = cmmnId;
     }
 
+    public LongFilter getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(LongFilter requestId) {
+        this.requestId = requestId;
+    }
+
     public LongFilter getCaseDataObjectId() {
         return caseDataObjectId;
     }
@@ -222,6 +232,7 @@ public class CazeInstanceCriteria implements Serializable {
             Objects.equals(requiredTime, that.requiredTime) &&
             Objects.equals(secured, that.secured) &&
             Objects.equals(cmmnId, that.cmmnId) &&
+            Objects.equals(requestId, that.requestId) &&
             Objects.equals(caseDataObjectId, that.caseDataObjectId) &&
             Objects.equals(cazeTypeId, that.cazeTypeId) &&
             Objects.equals(camundaCaseInstanceId, that.camundaCaseInstanceId) &&
@@ -244,6 +255,7 @@ public class CazeInstanceCriteria implements Serializable {
         requiredTime,
         secured,
         cmmnId,
+        requestId,
         caseDataObjectId,
         cazeTypeId,
         camundaCaseInstanceId,
@@ -267,6 +279,7 @@ public class CazeInstanceCriteria implements Serializable {
                 (requiredTime != null ? "requiredTime=" + requiredTime + ", " : "") +
                 (secured != null ? "secured=" + secured + ", " : "") +
                 (cmmnId != null ? "cmmnId=" + cmmnId + ", " : "") +
+                (requestId != null ? "requestId=" + requestId + ", " : "") +
                 (caseDataObjectId != null ? "caseDataObjectId=" + caseDataObjectId + ", " : "") +
                 (cazeTypeId != null ? "cazeTypeId=" + cazeTypeId + ", " : "") +
                 (camundaCaseInstanceId != null ? "camundaCaseInstanceId=" + camundaCaseInstanceId + ", " : "") +

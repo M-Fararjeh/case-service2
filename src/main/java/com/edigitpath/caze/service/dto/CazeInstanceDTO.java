@@ -35,6 +35,8 @@ public class CazeInstanceDTO implements Serializable {
 
     private String cmmnId;
 
+    private Long requestId;
+
 
     private Long cazeTypeId;
 
@@ -140,6 +142,14 @@ public class CazeInstanceDTO implements Serializable {
         this.cmmnId = cmmnId;
     }
 
+    public Long getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(Long requestId) {
+        this.requestId = requestId;
+    }
+
     public Long getCazeTypeId() {
         return cazeTypeId;
     }
@@ -208,6 +218,7 @@ public class CazeInstanceDTO implements Serializable {
             ", requiredTime=" + getRequiredTime() +
             ", secured='" + isSecured() + "'" +
             ", cmmnId='" + getCmmnId() + "'" +
+            ", requestId=" + getRequestId() +
             ", cazeType=" + getCazeTypeId() +
             "}";
     }

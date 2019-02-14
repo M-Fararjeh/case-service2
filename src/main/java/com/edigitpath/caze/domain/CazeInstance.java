@@ -61,6 +61,9 @@ public class CazeInstance implements Serializable {
     @Column(name = "cmmn_id")
     private String cmmnId;
 
+    @Column(name = "request_id")
+    private Long requestId;
+
     @OneToMany(mappedBy = "cazeInstance")
     private Set<CaseDataObject> caseDataObjects = new HashSet<>();
     @ManyToOne
@@ -182,6 +185,14 @@ public class CazeInstance implements Serializable {
         this.cmmnId = cmmnId;
     }
 
+    public Long getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(Long requestId) {
+        this.requestId = requestId;
+    }
+
     public Set<CaseDataObject> getCaseDataObjects() {
         return caseDataObjects;
     }
@@ -258,6 +269,7 @@ public class CazeInstance implements Serializable {
             ", requiredTime=" + getRequiredTime() +
             ", secured='" + isSecured() + "'" +
             ", cmmnId='" + getCmmnId() + "'" +
+            ", requestId=" + getRequestId() +
             "}";
     }
 }

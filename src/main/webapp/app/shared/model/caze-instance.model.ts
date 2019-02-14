@@ -23,6 +23,7 @@ export interface ICazeInstance {
     requiredTime?: number;
     secured?: boolean;
     cmmnId?: string;
+    requestId?: number;
     caseDataObjects?: ICaseDataObject[];
     cazeTypeId?: number;
     camundaCaseInstances?: ICamundaCaseInstance[];
@@ -44,6 +45,7 @@ export class CazeInstance implements ICazeInstance {
         public requiredTime?: number,
         public secured?: boolean,
         public cmmnId?: string,
+        public requestId?: number,
         public caseDataObjects?: ICaseDataObject[],
         public cazeTypeId?: number,
         public camundaCaseInstances?: ICamundaCaseInstance[],

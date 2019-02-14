@@ -483,6 +483,10 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'category',
                 loadChildren: './category/category.module#CaseServiceCategoryModule'
+            },
+            {
+                path: 'caze-instance',
+                loadChildren: './caze-instance/caze-instance.module#CaseServiceCazeInstanceModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])
