@@ -32,7 +32,7 @@ export class CazeTypeUpdateComponent implements OnInit {
             this.cazeType = cazeType;
         });
         this.categoryService
-            .query({ filter: 'cazetype-is-null' })
+            .query({ 'cazeTypeId.specified': 'false' })
             .pipe(
                 filter((mayBeOk: HttpResponse<ICategory[]>) => mayBeOk.ok),
                 map((response: HttpResponse<ICategory[]>) => response.body)

@@ -4,6 +4,8 @@ import com.edigitpath.caze.web.rest.errors.BadRequestAlertException;
 import com.edigitpath.caze.web.rest.util.HeaderUtil;
 import com.edigitpath.caze.web.rest.util.PaginationUtil;
 import com.edigitpath.caze.service.dto.CazeTypeDTO;
+import com.edigitpath.caze.service.dto.CazeTypeCriteria;
+import com.edigitpath.caze.service.CazeTypeQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +35,11 @@ public class CazeTypeResource {
 
     private final CazeTypeService cazeTypeService;
 
-    public CazeTypeResource(CazeTypeService cazeTypeService) {
+    private final CazeTypeQueryService cazeTypeQueryService;
+
+    public CazeTypeResource(CazeTypeService cazeTypeService, CazeTypeQueryService cazeTypeQueryService) {
         this.cazeTypeService = cazeTypeService;
+        this.cazeTypeQueryService = cazeTypeQueryService;
     }
 
     /**
@@ -81,14 +86,27 @@ public class CazeTypeResource {
      * GET  /caze-types : get all the cazeTypes.
      *
      * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of cazeTypes in body
      */
     @GetMapping("/caze-types")
-    public ResponseEntity<List<CazeTypeDTO>> getAllCazeTypes(Pageable pageable) {
-        log.debug("REST request to get a page of CazeTypes");
-        Page<CazeTypeDTO> page = cazeTypeService.findAll(pageable);
+    public ResponseEntity<List<CazeTypeDTO>> getAllCazeTypes(CazeTypeCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get CazeTypes by criteria: {}", criteria);
+        Page<CazeTypeDTO> page = cazeTypeQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/caze-types");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+    * GET  /caze-types/count : count all the cazeTypes.
+    *
+    * @param criteria the criterias which the requested entities should match
+    * @return the ResponseEntity with status 200 (OK) and the count in body
+    */
+    @GetMapping("/caze-types/count")
+    public ResponseEntity<Long> countCazeTypes(CazeTypeCriteria criteria) {
+        log.debug("REST request to count CazeTypes by criteria: {}", criteria);
+        return ResponseEntity.ok().body(cazeTypeQueryService.countByCriteria(criteria));
     }
 
     /**

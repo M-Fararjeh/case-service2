@@ -108,3 +108,5 @@ service all with serviceClass
 dto * with mapstruct
 
 noFluentMethod all 
+
+filter all

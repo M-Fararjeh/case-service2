@@ -4,6 +4,8 @@ import com.edigitpath.caze.web.rest.errors.BadRequestAlertException;
 import com.edigitpath.caze.web.rest.util.HeaderUtil;
 import com.edigitpath.caze.web.rest.util.PaginationUtil;
 import com.edigitpath.caze.service.dto.ApiHeaderDTO;
+import com.edigitpath.caze.service.dto.ApiHeaderCriteria;
+import com.edigitpath.caze.service.ApiHeaderQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +35,11 @@ public class ApiHeaderResource {
 
     private final ApiHeaderService apiHeaderService;
 
-    public ApiHeaderResource(ApiHeaderService apiHeaderService) {
+    private final ApiHeaderQueryService apiHeaderQueryService;
+
+    public ApiHeaderResource(ApiHeaderService apiHeaderService, ApiHeaderQueryService apiHeaderQueryService) {
         this.apiHeaderService = apiHeaderService;
+        this.apiHeaderQueryService = apiHeaderQueryService;
     }
 
     /**
@@ -81,14 +86,27 @@ public class ApiHeaderResource {
      * GET  /api-headers : get all the apiHeaders.
      *
      * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of apiHeaders in body
      */
     @GetMapping("/api-headers")
-    public ResponseEntity<List<ApiHeaderDTO>> getAllApiHeaders(Pageable pageable) {
-        log.debug("REST request to get a page of ApiHeaders");
-        Page<ApiHeaderDTO> page = apiHeaderService.findAll(pageable);
+    public ResponseEntity<List<ApiHeaderDTO>> getAllApiHeaders(ApiHeaderCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get ApiHeaders by criteria: {}", criteria);
+        Page<ApiHeaderDTO> page = apiHeaderQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/api-headers");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+    * GET  /api-headers/count : count all the apiHeaders.
+    *
+    * @param criteria the criterias which the requested entities should match
+    * @return the ResponseEntity with status 200 (OK) and the count in body
+    */
+    @GetMapping("/api-headers/count")
+    public ResponseEntity<Long> countApiHeaders(ApiHeaderCriteria criteria) {
+        log.debug("REST request to count ApiHeaders by criteria: {}", criteria);
+        return ResponseEntity.ok().body(apiHeaderQueryService.countByCriteria(criteria));
     }
 
     /**

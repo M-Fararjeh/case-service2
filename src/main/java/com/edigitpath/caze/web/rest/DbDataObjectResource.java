@@ -4,6 +4,8 @@ import com.edigitpath.caze.web.rest.errors.BadRequestAlertException;
 import com.edigitpath.caze.web.rest.util.HeaderUtil;
 import com.edigitpath.caze.web.rest.util.PaginationUtil;
 import com.edigitpath.caze.service.dto.DbDataObjectDTO;
+import com.edigitpath.caze.service.dto.DbDataObjectCriteria;
+import com.edigitpath.caze.service.DbDataObjectQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +35,11 @@ public class DbDataObjectResource {
 
     private final DbDataObjectService dbDataObjectService;
 
-    public DbDataObjectResource(DbDataObjectService dbDataObjectService) {
+    private final DbDataObjectQueryService dbDataObjectQueryService;
+
+    public DbDataObjectResource(DbDataObjectService dbDataObjectService, DbDataObjectQueryService dbDataObjectQueryService) {
         this.dbDataObjectService = dbDataObjectService;
+        this.dbDataObjectQueryService = dbDataObjectQueryService;
     }
 
     /**
@@ -81,14 +86,27 @@ public class DbDataObjectResource {
      * GET  /db-data-objects : get all the dbDataObjects.
      *
      * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of dbDataObjects in body
      */
     @GetMapping("/db-data-objects")
-    public ResponseEntity<List<DbDataObjectDTO>> getAllDbDataObjects(Pageable pageable) {
-        log.debug("REST request to get a page of DbDataObjects");
-        Page<DbDataObjectDTO> page = dbDataObjectService.findAll(pageable);
+    public ResponseEntity<List<DbDataObjectDTO>> getAllDbDataObjects(DbDataObjectCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get DbDataObjects by criteria: {}", criteria);
+        Page<DbDataObjectDTO> page = dbDataObjectQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/db-data-objects");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+    * GET  /db-data-objects/count : count all the dbDataObjects.
+    *
+    * @param criteria the criterias which the requested entities should match
+    * @return the ResponseEntity with status 200 (OK) and the count in body
+    */
+    @GetMapping("/db-data-objects/count")
+    public ResponseEntity<Long> countDbDataObjects(DbDataObjectCriteria criteria) {
+        log.debug("REST request to count DbDataObjects by criteria: {}", criteria);
+        return ResponseEntity.ok().body(dbDataObjectQueryService.countByCriteria(criteria));
     }
 
     /**

@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface FileDataObjectRepository extends JpaRepository<FileDataObject, Long> {
+public interface FileDataObjectRepository extends JpaRepository<FileDataObject, Long>, JpaSpecificationExecutor<FileDataObject> {
 
 }

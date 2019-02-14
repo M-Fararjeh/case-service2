@@ -4,6 +4,8 @@ import com.edigitpath.caze.web.rest.errors.BadRequestAlertException;
 import com.edigitpath.caze.web.rest.util.HeaderUtil;
 import com.edigitpath.caze.web.rest.util.PaginationUtil;
 import com.edigitpath.caze.service.dto.CamundaCaseInstanceDTO;
+import com.edigitpath.caze.service.dto.CamundaCaseInstanceCriteria;
+import com.edigitpath.caze.service.CamundaCaseInstanceQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +35,11 @@ public class CamundaCaseInstanceResource {
 
     private final CamundaCaseInstanceService camundaCaseInstanceService;
 
-    public CamundaCaseInstanceResource(CamundaCaseInstanceService camundaCaseInstanceService) {
+    private final CamundaCaseInstanceQueryService camundaCaseInstanceQueryService;
+
+    public CamundaCaseInstanceResource(CamundaCaseInstanceService camundaCaseInstanceService, CamundaCaseInstanceQueryService camundaCaseInstanceQueryService) {
         this.camundaCaseInstanceService = camundaCaseInstanceService;
+        this.camundaCaseInstanceQueryService = camundaCaseInstanceQueryService;
     }
 
     /**
@@ -81,14 +86,27 @@ public class CamundaCaseInstanceResource {
      * GET  /camunda-case-instances : get all the camundaCaseInstances.
      *
      * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of camundaCaseInstances in body
      */
     @GetMapping("/camunda-case-instances")
-    public ResponseEntity<List<CamundaCaseInstanceDTO>> getAllCamundaCaseInstances(Pageable pageable) {
-        log.debug("REST request to get a page of CamundaCaseInstances");
-        Page<CamundaCaseInstanceDTO> page = camundaCaseInstanceService.findAll(pageable);
+    public ResponseEntity<List<CamundaCaseInstanceDTO>> getAllCamundaCaseInstances(CamundaCaseInstanceCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get CamundaCaseInstances by criteria: {}", criteria);
+        Page<CamundaCaseInstanceDTO> page = camundaCaseInstanceQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/camunda-case-instances");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+    * GET  /camunda-case-instances/count : count all the camundaCaseInstances.
+    *
+    * @param criteria the criterias which the requested entities should match
+    * @return the ResponseEntity with status 200 (OK) and the count in body
+    */
+    @GetMapping("/camunda-case-instances/count")
+    public ResponseEntity<Long> countCamundaCaseInstances(CamundaCaseInstanceCriteria criteria) {
+        log.debug("REST request to count CamundaCaseInstances by criteria: {}", criteria);
+        return ResponseEntity.ok().body(camundaCaseInstanceQueryService.countByCriteria(criteria));
     }
 
     /**

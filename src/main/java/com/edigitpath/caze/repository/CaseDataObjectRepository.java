@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface CaseDataObjectRepository extends JpaRepository<CaseDataObject, Long> {
+public interface CaseDataObjectRepository extends JpaRepository<CaseDataObject, Long>, JpaSpecificationExecutor<CaseDataObject> {
 
 }

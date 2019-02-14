@@ -4,6 +4,8 @@ import com.edigitpath.caze.web.rest.errors.BadRequestAlertException;
 import com.edigitpath.caze.web.rest.util.HeaderUtil;
 import com.edigitpath.caze.web.rest.util.PaginationUtil;
 import com.edigitpath.caze.service.dto.ApiDataObjectDTO;
+import com.edigitpath.caze.service.dto.ApiDataObjectCriteria;
+import com.edigitpath.caze.service.ApiDataObjectQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +35,11 @@ public class ApiDataObjectResource {
 
     private final ApiDataObjectService apiDataObjectService;
 
-    public ApiDataObjectResource(ApiDataObjectService apiDataObjectService) {
+    private final ApiDataObjectQueryService apiDataObjectQueryService;
+
+    public ApiDataObjectResource(ApiDataObjectService apiDataObjectService, ApiDataObjectQueryService apiDataObjectQueryService) {
         this.apiDataObjectService = apiDataObjectService;
+        this.apiDataObjectQueryService = apiDataObjectQueryService;
     }
 
     /**
@@ -81,14 +86,27 @@ public class ApiDataObjectResource {
      * GET  /api-data-objects : get all the apiDataObjects.
      *
      * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of apiDataObjects in body
      */
     @GetMapping("/api-data-objects")
-    public ResponseEntity<List<ApiDataObjectDTO>> getAllApiDataObjects(Pageable pageable) {
-        log.debug("REST request to get a page of ApiDataObjects");
-        Page<ApiDataObjectDTO> page = apiDataObjectService.findAll(pageable);
+    public ResponseEntity<List<ApiDataObjectDTO>> getAllApiDataObjects(ApiDataObjectCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get ApiDataObjects by criteria: {}", criteria);
+        Page<ApiDataObjectDTO> page = apiDataObjectQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/api-data-objects");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+    * GET  /api-data-objects/count : count all the apiDataObjects.
+    *
+    * @param criteria the criterias which the requested entities should match
+    * @return the ResponseEntity with status 200 (OK) and the count in body
+    */
+    @GetMapping("/api-data-objects/count")
+    public ResponseEntity<Long> countApiDataObjects(ApiDataObjectCriteria criteria) {
+        log.debug("REST request to count ApiDataObjects by criteria: {}", criteria);
+        return ResponseEntity.ok().body(apiDataObjectQueryService.countByCriteria(criteria));
     }
 
     /**

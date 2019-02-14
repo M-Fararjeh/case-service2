@@ -4,6 +4,8 @@ import com.edigitpath.caze.web.rest.errors.BadRequestAlertException;
 import com.edigitpath.caze.web.rest.util.HeaderUtil;
 import com.edigitpath.caze.web.rest.util.PaginationUtil;
 import com.edigitpath.caze.service.dto.FileDataObjectDTO;
+import com.edigitpath.caze.service.dto.FileDataObjectCriteria;
+import com.edigitpath.caze.service.FileDataObjectQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +35,11 @@ public class FileDataObjectResource {
 
     private final FileDataObjectService fileDataObjectService;
 
-    public FileDataObjectResource(FileDataObjectService fileDataObjectService) {
+    private final FileDataObjectQueryService fileDataObjectQueryService;
+
+    public FileDataObjectResource(FileDataObjectService fileDataObjectService, FileDataObjectQueryService fileDataObjectQueryService) {
         this.fileDataObjectService = fileDataObjectService;
+        this.fileDataObjectQueryService = fileDataObjectQueryService;
     }
 
     /**
@@ -81,14 +86,27 @@ public class FileDataObjectResource {
      * GET  /file-data-objects : get all the fileDataObjects.
      *
      * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of fileDataObjects in body
      */
     @GetMapping("/file-data-objects")
-    public ResponseEntity<List<FileDataObjectDTO>> getAllFileDataObjects(Pageable pageable) {
-        log.debug("REST request to get a page of FileDataObjects");
-        Page<FileDataObjectDTO> page = fileDataObjectService.findAll(pageable);
+    public ResponseEntity<List<FileDataObjectDTO>> getAllFileDataObjects(FileDataObjectCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get FileDataObjects by criteria: {}", criteria);
+        Page<FileDataObjectDTO> page = fileDataObjectQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/file-data-objects");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+    * GET  /file-data-objects/count : count all the fileDataObjects.
+    *
+    * @param criteria the criterias which the requested entities should match
+    * @return the ResponseEntity with status 200 (OK) and the count in body
+    */
+    @GetMapping("/file-data-objects/count")
+    public ResponseEntity<Long> countFileDataObjects(FileDataObjectCriteria criteria) {
+        log.debug("REST request to count FileDataObjects by criteria: {}", criteria);
+        return ResponseEntity.ok().body(fileDataObjectQueryService.countByCriteria(criteria));
     }
 
     /**

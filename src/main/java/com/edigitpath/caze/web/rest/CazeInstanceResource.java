@@ -4,6 +4,8 @@ import com.edigitpath.caze.web.rest.errors.BadRequestAlertException;
 import com.edigitpath.caze.web.rest.util.HeaderUtil;
 import com.edigitpath.caze.web.rest.util.PaginationUtil;
 import com.edigitpath.caze.service.dto.CazeInstanceDTO;
+import com.edigitpath.caze.service.dto.CazeInstanceCriteria;
+import com.edigitpath.caze.service.CazeInstanceQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +35,11 @@ public class CazeInstanceResource {
 
     private final CazeInstanceService cazeInstanceService;
 
-    public CazeInstanceResource(CazeInstanceService cazeInstanceService) {
+    private final CazeInstanceQueryService cazeInstanceQueryService;
+
+    public CazeInstanceResource(CazeInstanceService cazeInstanceService, CazeInstanceQueryService cazeInstanceQueryService) {
         this.cazeInstanceService = cazeInstanceService;
+        this.cazeInstanceQueryService = cazeInstanceQueryService;
     }
 
     /**
@@ -81,20 +86,27 @@ public class CazeInstanceResource {
      * GET  /caze-instances : get all the cazeInstances.
      *
      * @param pageable the pagination information
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of cazeInstances in body
      */
     @GetMapping("/caze-instances")
-    public ResponseEntity<List<CazeInstanceDTO>> getAllCazeInstances(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
-        log.debug("REST request to get a page of CazeInstances");
-        Page<CazeInstanceDTO> page;
-        if (eagerload) {
-            page = cazeInstanceService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = cazeInstanceService.findAll(pageable);
-        }
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, String.format("/api/caze-instances?eagerload=%b", eagerload));
+    public ResponseEntity<List<CazeInstanceDTO>> getAllCazeInstances(CazeInstanceCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get CazeInstances by criteria: {}", criteria);
+        Page<CazeInstanceDTO> page = cazeInstanceQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/caze-instances");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+    * GET  /caze-instances/count : count all the cazeInstances.
+    *
+    * @param criteria the criterias which the requested entities should match
+    * @return the ResponseEntity with status 200 (OK) and the count in body
+    */
+    @GetMapping("/caze-instances/count")
+    public ResponseEntity<Long> countCazeInstances(CazeInstanceCriteria criteria) {
+        log.debug("REST request to count CazeInstances by criteria: {}", criteria);
+        return ResponseEntity.ok().body(cazeInstanceQueryService.countByCriteria(criteria));
     }
 
     /**

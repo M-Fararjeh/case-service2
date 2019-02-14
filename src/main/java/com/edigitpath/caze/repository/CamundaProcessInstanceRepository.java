@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface CamundaProcessInstanceRepository extends JpaRepository<CamundaProcessInstance, Long> {
+public interface CamundaProcessInstanceRepository extends JpaRepository<CamundaProcessInstance, Long>, JpaSpecificationExecutor<CamundaProcessInstance> {
 
 }

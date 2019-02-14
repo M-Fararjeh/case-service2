@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface ApiDataObjectRepository extends JpaRepository<ApiDataObject, Long> {
+public interface ApiDataObjectRepository extends JpaRepository<ApiDataObject, Long>, JpaSpecificationExecutor<ApiDataObject> {
 
 }

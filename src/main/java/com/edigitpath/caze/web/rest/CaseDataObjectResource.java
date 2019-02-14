@@ -4,6 +4,8 @@ import com.edigitpath.caze.web.rest.errors.BadRequestAlertException;
 import com.edigitpath.caze.web.rest.util.HeaderUtil;
 import com.edigitpath.caze.web.rest.util.PaginationUtil;
 import com.edigitpath.caze.service.dto.CaseDataObjectDTO;
+import com.edigitpath.caze.service.dto.CaseDataObjectCriteria;
+import com.edigitpath.caze.service.CaseDataObjectQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +35,11 @@ public class CaseDataObjectResource {
 
     private final CaseDataObjectService caseDataObjectService;
 
-    public CaseDataObjectResource(CaseDataObjectService caseDataObjectService) {
+    private final CaseDataObjectQueryService caseDataObjectQueryService;
+
+    public CaseDataObjectResource(CaseDataObjectService caseDataObjectService, CaseDataObjectQueryService caseDataObjectQueryService) {
         this.caseDataObjectService = caseDataObjectService;
+        this.caseDataObjectQueryService = caseDataObjectQueryService;
     }
 
     /**
@@ -81,14 +86,27 @@ public class CaseDataObjectResource {
      * GET  /case-data-objects : get all the caseDataObjects.
      *
      * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of caseDataObjects in body
      */
     @GetMapping("/case-data-objects")
-    public ResponseEntity<List<CaseDataObjectDTO>> getAllCaseDataObjects(Pageable pageable) {
-        log.debug("REST request to get a page of CaseDataObjects");
-        Page<CaseDataObjectDTO> page = caseDataObjectService.findAll(pageable);
+    public ResponseEntity<List<CaseDataObjectDTO>> getAllCaseDataObjects(CaseDataObjectCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get CaseDataObjects by criteria: {}", criteria);
+        Page<CaseDataObjectDTO> page = caseDataObjectQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/case-data-objects");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+    * GET  /case-data-objects/count : count all the caseDataObjects.
+    *
+    * @param criteria the criterias which the requested entities should match
+    * @return the ResponseEntity with status 200 (OK) and the count in body
+    */
+    @GetMapping("/case-data-objects/count")
+    public ResponseEntity<Long> countCaseDataObjects(CaseDataObjectCriteria criteria) {
+        log.debug("REST request to count CaseDataObjects by criteria: {}", criteria);
+        return ResponseEntity.ok().body(caseDataObjectQueryService.countByCriteria(criteria));
     }
 
     /**

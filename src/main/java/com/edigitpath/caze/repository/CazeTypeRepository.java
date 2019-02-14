@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface CazeTypeRepository extends JpaRepository<CazeType, Long> {
+public interface CazeTypeRepository extends JpaRepository<CazeType, Long>, JpaSpecificationExecutor<CazeType> {
 
 }

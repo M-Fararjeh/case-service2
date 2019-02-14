@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface DbDataObjectRepository extends JpaRepository<DbDataObject, Long> {
+public interface DbDataObjectRepository extends JpaRepository<DbDataObject, Long>, JpaSpecificationExecutor<DbDataObject> {
 
 }

@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface ApiHeaderRepository extends JpaRepository<ApiHeader, Long> {
+public interface ApiHeaderRepository extends JpaRepository<ApiHeader, Long>, JpaSpecificationExecutor<ApiHeader> {
 
 }

@@ -15,7 +15,7 @@ import java.util.Optional;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface CazeInstanceRepository extends JpaRepository<CazeInstance, Long> {
+public interface CazeInstanceRepository extends JpaRepository<CazeInstance, Long>, JpaSpecificationExecutor<CazeInstance> {
 
     @Query(value = "select distinct caze_instance from CazeInstance caze_instance left join fetch caze_instance.camundaCaseInstances left join fetch caze_instance.camundaProcessInstances left join fetch caze_instance.relatedCazes",
         countQuery = "select count(distinct caze_instance) from CazeInstance caze_instance")
